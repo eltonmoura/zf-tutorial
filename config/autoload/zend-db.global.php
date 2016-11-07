@@ -1,4 +1,5 @@
 <?php
 use Zend\Db\ConfigProvider;
 
-return (new ConfigProvider())();
+$configProvider = new ConfigProvider();
+return $configProvider();
