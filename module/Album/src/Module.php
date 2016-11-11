@@ -4,10 +4,9 @@ namespace Album;
 use Zend\Db\Adapter\AdapterInterface;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
-#use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements ConfigProviderInterface #, ConfigProviderInterface
+class Module implements ConfigProviderInterface
 {
     public function getConfig()
     {
@@ -44,18 +43,4 @@ class Module implements ConfigProviderInterface #, ConfigProviderInterface
             ],
         ];
     }
-
-    #public function getAutoloaderConfig()
-    #{
-    #    return [
-    #        'Zend\Loader\ClassMapAutoloader' => [
-    #            __DIR__ . '/autoload_classmap.php',
-    #        ],
-    #        'Zend\Loader\StandardAutoloader' => [
-    #            'namespaces' => [
-    #                __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-    #            ],
-    #        ],
-    #    ];
-    #}
 }

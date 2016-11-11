@@ -14,7 +14,8 @@ $this->headTitle($title);
     <th>Artist</th>
     <th>&nbsp;</th>
 </tr>
-<?php foreach ($albums as $album) : ?>
+<?php if (isset($albums) && $albums->count() > 0): ?>
+<?php foreach ($albums as $album): ?>
     <tr>
         <td><?= $this->escapeHtml($album->title) ?></td>
         <td><?= $this->escapeHtml($album->artist) ?></td>
@@ -24,4 +25,5 @@ $this->headTitle($title);
         </td>
     </tr>
 <?php endforeach; ?>
+<?php endif; ?>
 </table>
