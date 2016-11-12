@@ -53,6 +53,10 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
         return $this->albumTable;
     }
 
+    /**
+     * Início dos testes
+     */
+
     public function testIndexActionCanBeAccessed()
     {
         $this->dispatch('/album');
@@ -78,19 +82,33 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
         $this->assertRedirectTo('/album');
     }
 
-    #public function testEditActionRedirectsAfterValidPost()
-    #{
-    #    $id = 0;
-    #    $this->albumTable
-    #         ->getAlbum($id)
-    #         ->willReturn(new Album());
-    #    $postData = [
-    #        'title'  => 'Led Zeppelin III',
-    #        'artist' => 'Led Zeppelin',
-    #        'id'     => $id,
-    #    ];
-    #    $this->dispatch('/album/edit/' . $id, 'POST', $postData);
-    #    $this->assertResponseStatusCode(302);
-    #    $this->assertRedirectTo('/album');
-    #}
+    public function testEditActionRedirectsAfterValidPost()
+    {
+        // Cria o registro
+        $id = 1;
+        $this->albumTable
+             ->saveAlbum(Argument::type(Album::class))
+             ->shouldBeCalled();
+        $postData = [
+            'title'  => 'Led Zeppelin III',
+            'artist' => 'Led Zeppelin',
+            'id'     => $id,
+        ];
+        $this->dispatch('/album/add', 'POST', $postData);
+        
+        // Edita o registro criado
+        $postData = [
+            'title'  => 'Led Zeppelin III (mod)',
+            'artist' => 'Led Zeppelin (mod)',
+            'id'     => $id,
+        ];
+        
+        $this->albumTable
+             ->getAlbum($id)
+             ->willReturn(new Album());
+        
+        $this->dispatch('/album/edit/' . $id, 'POST', $postData);
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirectTo('/album');
+    }
 }
