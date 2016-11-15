@@ -17,20 +17,24 @@ class AlbumTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll($paginated = false)
+    public function fetchAll($paginated = false, $search = null)
     {
+        $wheres = ['title like ? OR artist like ?'=> ['%'.$search.'%','%'.$search.'%']];
         if ($paginated) {
-            return $this->fetchPaginatedResults();
+            return $this->fetchPaginatedResults($wheres);
         }
-
-        return $this->tableGateway->select();
+        
+        return $this->tableGateway->select($wheres);
     }
 
-    private function fetchPaginatedResults()
+    private function fetchPaginatedResults(array $wheres = [])
     {
         // Create a new Select object for the table:
         $select = new Select($this->tableGateway->getTable());
 
+        if (count($wheres) > 0) {
+            $select->where($wheres);
+        }
         // Create a new result set based on the Album entity:
         $resultSetPrototype = new ResultSet();
         $resultSetPrototype->setArrayObjectPrototype(new Album());

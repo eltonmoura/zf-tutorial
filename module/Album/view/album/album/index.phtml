@@ -4,7 +4,33 @@ $title = 'My albums';
 $this->headTitle($title);
 ?>
 <h1><?= $this->escapeHtml($title) ?></h1>
-<p>
+
+<?php
+$search = $form->get('search');
+$search->setAttribute('class', 'form-control');
+$search->setAttribute('placeholder', 'Search');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('album', [
+    'action' => 'index',
+]));
+$form->prepare();
+?>
+
+<?= $this->form()->openTag($form) ?>
+
+<div class="form-group">
+    <?= $this->formElement($search) ?>
+    <?= $this->formElementErrors()->render($search, ['class' => 'help-block']) ?>
+</div>
+
+<?= $this->formSubmit($submit) ?>
+
+<?= $this->form()->closeTag() ?>
+
+<p align="right">
     <a href="<?= $this->url('album', ['action' => 'add']) ?>">Add new album</a>
 </p>
 
@@ -19,7 +45,7 @@ $this->headTitle($title);
     <tr>
         <td><?= $this->escapeHtml($album->title) ?></td>
         <td><?= $this->escapeHtml($album->artist) ?></td>
-        <td>
+        <td align="right">
             <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
             <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
         </td>
@@ -27,6 +53,7 @@ $this->headTitle($title);
 <?php endforeach; ?>
 <?php endif; ?>
 </table>
+<?php if (isset($this->paginator) && $this->paginator->count() > 0): ?>
 <?= $this->paginationControl(
     // The paginator object:
     $this->paginator,
@@ -37,3 +64,4 @@ $this->headTitle($title);
     // The route to link to when a user clicks a control link:
     ['route' => 'album']
 ) ?>
+<?php endif; ?>
