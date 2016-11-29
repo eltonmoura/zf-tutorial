@@ -55,11 +55,15 @@ class AlbumController extends AbstractActionController
         $form->setData($request->getPost());
 
         if (! $form->isValid()) {
+            $this->flashMessenger()->addErrorMessage('Album com erro');
             return ['form' => $form];
         }
 
         $album->exchangeArray($form->getData());
         $this->table->saveAlbum($album);
+        
+        $this->flashMessenger()->addSuccessMessage('Album incluido com sucesso!');
+
         return $this->redirect()->toRoute('album');
     }
 

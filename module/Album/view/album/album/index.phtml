@@ -3,6 +3,7 @@
 $title = 'My albums';
 $this->headTitle($title);
 ?>
+
 <h1><?= $this->escapeHtml($title) ?></h1>
 
 <?php
@@ -30,24 +31,35 @@ $form->prepare();
 
 <?= $this->form()->closeTag() ?>
 
-<p align="right">
-    <a href="<?= $this->url('album', ['action' => 'add']) ?>">Add new album</a>
+<p class="text-right">
+    <a title="Add Album" class="btn btn-success btn-sm" href="<?= $this->url('album', ['action' => 'add']) ?>">
+    <span class="glyphicon glyphicon-plus-sign"></span> Add</a>
 </p>
 
-<table class="table">
-<tr>
-    <th>Title</th>
-    <th>Artist</th>
-    <th>&nbsp;</th>
-</tr>
+<table class="table table-striped">
+<thead>
+    <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th></th>
+    </tr>
+</thead>
 <?php if (isset($this->paginator) && $this->paginator->count() > 0): ?>
 <?php foreach ($this->paginator as $album): ?>
     <tr>
         <td><?= $this->escapeHtml($album->title) ?></td>
         <td><?= $this->escapeHtml($album->artist) ?></td>
-        <td align="right">
-            <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>">Edit</a>
-            <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>">Delete</a>
+        <td class="text-right">
+            <a href="<?= $this->url('album', ['action' => 'edit', 'id' => $album->id]) ?>" 
+               class="btn-info btn-sm" 
+               title="Edit Album">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>&nbsp;
+            <a href="<?= $this->url('album', ['action' => 'delete', 'id' => $album->id]) ?>"
+               class="btn-danger btn-sm"
+               title="Delete Album">
+                <span class="glyphicon glyphicon-remove-circle"></span>
+            </a>
         </td>
     </tr>
 <?php endforeach; ?>
