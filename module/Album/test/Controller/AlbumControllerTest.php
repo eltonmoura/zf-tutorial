@@ -57,15 +57,15 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
      * Início dos testes
      */
 
-    public function testIndexActionCanBeAccessed()
-    {
-        $this->dispatch('/album');
-        $this->assertResponseStatusCode(200);
-        $this->assertModuleName('Album');
-        $this->assertControllerName(AlbumController::class);
-        $this->assertControllerClass('AlbumController');
-        $this->assertMatchedRouteName('album');
-    }
+   # public function testIndexActionCanBeAccessed()
+   # {
+   #     $this->dispatch('/album');
+   #     $this->assertResponseStatusCode(200);
+   #     $this->assertModuleName('Album');
+   #     $this->assertControllerName(AlbumController::class);
+   #     $this->assertControllerClass('AlbumController');
+   #     $this->assertMatchedRouteName('album');
+   # }
 
     public function testAddActionRedirectsAfterValidPost()
     {
