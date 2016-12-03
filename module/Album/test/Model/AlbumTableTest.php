@@ -24,8 +24,8 @@ class AlbumTableTest extends TestCase
     {
         // mock
         $resultSet = $this->prophesize(ResultSetInterface::class)->reveal();
-        $this->tableGateway->select()->willReturn($resultSet);
-
+        $this->tableGateway->select([])->willReturn($resultSet);
+        
         $this->assertSame($resultSet, $this->albumTable->fetchAll());
     }
 

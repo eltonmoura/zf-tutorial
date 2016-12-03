@@ -19,21 +19,25 @@ class AlbumTable
 
     public function fetchAll($paginated = false, $search = null)
     {
-        $wheres = ['title like ? OR artist like ?'=> ['%'.$search.'%','%'.$search.'%']];
+        $where = [];
+        if ($search) {
+            $where = ['title like ? OR artist like ?'=> ['%'.$search.'%','%'.$search.'%']];
+        }
+
         if ($paginated) {
-            return $this->fetchPaginatedResults($wheres);
+            return $this->fetchPaginatedResults($where);
         }
         
-        return $this->tableGateway->select($wheres);
+        return $this->tableGateway->select($where);
     }
 
-    private function fetchPaginatedResults(array $wheres = [])
+    private function fetchPaginatedResults(array $where = [])
     {
         // Create a new Select object for the table:
         $select = new Select($this->tableGateway->getTable());
 
-        if (count($wheres) > 0) {
-            $select->where($wheres);
+        if (count($where) > 0) {
+            $select->where($where);
         }
         // Create a new result set based on the Album entity:
         $resultSetPrototype = new ResultSet();
