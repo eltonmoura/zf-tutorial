@@ -20,14 +20,14 @@ class AlbumTableTest extends TestCase
      * This test assures that we can get a list of albums, or one album by its ID,
      * and that we can save and delete albums from the database.
      */
-    #public function testFetchAllReturnsAllAlbums()
-    #{
-    #    // mock
-    #    $resultSet = $this->prophesize(ResultSetInterface::class)->reveal();
-    #    $this->tableGateway->select()->willReturn($resultSet);
-    #    
-    #    $this->assertSame($resultSet, $this->albumTable->fetchAll());
-    #}
+    public function testFetchAllReturnsAllAlbums()
+    {
+        // mock
+        $resultSet = $this->prophesize(ResultSetInterface::class)->reveal();
+        $this->tableGateway->select([])->willReturn($resultSet);
+        
+        $this->assertSame($resultSet, $this->albumTable->fetchAll());
+    }
 
     public function testCanDeleteAnAlbumByItsId()
     {
